@@ -1,4 +1,4 @@
-package com.example.midatingapp.ui.theme
+package com.example.midatingapp.view.ui.theme
 
 import androidx.compose.ui.graphics.Color
 

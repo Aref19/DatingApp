@@ -1,4 +1,4 @@
-package com.example.midatingapp
+package com.example.midatingapp.view
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
