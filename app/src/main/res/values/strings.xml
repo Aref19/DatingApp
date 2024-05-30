@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">MIDatingApp</string>
     <string name="title_activity_registering">RegisteringActivity</string>
+    <string name="title_activity_main2">MainActivity2</string>
 </resources>
