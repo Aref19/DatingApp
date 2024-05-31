@@ -6,6 +6,9 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.material.OutlinedTextField
+import androidx.compose.material.TextFieldColors
+import androidx.compose.material.TextFieldDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -71,9 +74,91 @@ fun Circle(fullCycle: Boolean) {
 }
 
 @Composable
-fun  ExistingAccount(){
-    Row ( modifier = Modifier.padding(vertical = 20.dp)){
+fun ExistingAccount() {
+    Row(modifier = Modifier.padding(vertical = 20.dp)) {
         Text(text = "Existing account?")
         Text(text = "LogIn")
     }
 }
+
+@Composable
+fun BasicOutlineText(
+    onValueChange: (String) -> Unit,
+    outletAttribute: OutletAttribute,
+    textValue: String
+
+) {
+    OutlinedTextField(
+        value =textValue,
+        onValueChange = onValueChange,
+        label = { Text(outletAttribute.text) },
+        colors = TextFieldDefaults.outlinedTextFieldColors(
+            focusedBorderColor = outletAttribute.textFieldColors.focusedBorderColor, // Change border color when focused
+            cursorColor = outletAttribute.textFieldColors.cursorColor, // Change cursor color
+            textColor = outletAttribute.textFieldColors.textColor, // Change text color
+        )
+//        visualTransformation = if (passwordVisible) VisualTransformation.None else PasswordVisualTransformation(),
+
+    )
+}
+
+data class OutletAttribute(
+    val text: String,
+
+    val textFieldColors: OutLineTextColor
+)
+
+data class OutLineTextColor(
+    val focusedBorderColor: Color,
+    val cursorColor: Color,
+    val textColor: Color,
+    val errorBorderColor: Color,
+)
+
+// first Page
+
+var outletAttribute = mutableListOf(
+    OutletAttribute(
+        text = "name",
+
+        OutLineTextColor(
+            focusedBorderColor = Color.White, // Change border color when focused
+            cursorColor = Color.White, // Change cursor color
+            textColor = Color.Black, // Change text color
+            errorBorderColor = Color.Red,
+        )
+    ),
+    OutletAttribute(
+        text = "Email",
+
+        OutLineTextColor(
+            focusedBorderColor = Color.White, // Change border color when focused
+            cursorColor = Color.White, // Change cursor color
+            textColor = Color.Black, // Change text color
+            errorBorderColor = Color.Red,
+        )
+    ),
+
+    OutletAttribute(
+        text = "password",
+
+        OutLineTextColor(
+            focusedBorderColor = Color.White, // Change border color when focused
+            cursorColor = Color.White, // Change cursor color
+            textColor = Color.Black, // Change text color
+            errorBorderColor = Color.Red,
+        )
+    ),
+
+    OutletAttribute(
+        text = "confirm Password",
+        OutLineTextColor(
+            focusedBorderColor = Color.White, // Change border color when focused
+            cursorColor = Color.White, // Change cursor color
+            textColor = Color.Black, // Change text color
+            errorBorderColor = Color.Red,
+        )
+    ),
+
+
+    )

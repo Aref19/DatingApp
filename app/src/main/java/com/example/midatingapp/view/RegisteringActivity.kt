@@ -9,6 +9,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.lifecycle.ViewModelProvider
 import com.example.midatingapp.view.composable.registerin.RegisteringC
+import com.example.midatingapp.view.composable.registerin.unitcompose.outletAttribute
 import com.example.midatingapp.view.ui.theme.Lila
 import com.example.midatingapp.view.ui.theme.MIDatingAppTheme
 import com.example.midatingapp.viewmodel.registering.RegisteringViewModel
@@ -23,7 +24,8 @@ class RegisteringActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = Lila
                 ) {
-                    RegisteringC(viewModule, stepByStep = 1)
+                    RegisteringC(viewModule, stepByStep = 1,
+                        outletAttribute  )
                 }
             }
         }
