@@ -6,7 +6,6 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
@@ -48,7 +47,11 @@ import com.example.midatingapp.R
 import com.example.midatingapp.view.ui.theme.RegisteringImageText
 import com.example.midatingapp.view.ui.theme.RegisteringTexts
 import com.example.midatingapp.viewmodel.registering.Error
+import com.example.midatingapp.viewmodel.registering.RegisteringViewModel
+import com.example.midatingapp.viewmodel.registering.User
+import java.text.SimpleDateFormat
 import java.util.Date
+import java.util.Locale
 
 
 @Composable
@@ -272,12 +275,14 @@ var outletAttributeRegisPage2 = mutableListOf(
 fun DatePickerTextField(
     selectedDate: Date?,
     outletAttribute: OutletAttribute,
+    value: User,
+    registeringViewModel: RegisteringViewModel
 ) {
     var showDialog by remember { mutableStateOf(false) }
     val context = LocalContext.current
 
     OutlinedTextField(
-        value = selectedDate?.let { it }.toString() ?: "",
+        value =value.date,
         onValueChange = { /* Ignoring manual input for now */ },
         label = { Text("Date", color = Color.White) },
         readOnly = true, // Prevents manual input
@@ -305,7 +310,7 @@ fun DatePickerTextField(
             )
     )
     if (showDialog) {
-        DatePickerDialogCo(selectedDate)
+        DatePickerDialogCo(value,registeringViewModel)
     }
 
 }
@@ -352,17 +357,16 @@ fun Gander(
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun DatePickerDialogCo(selectedDate: Date?) {
+fun DatePickerDialogCo( value: User, registeringViewModel: RegisteringViewModel) {
     val datePickerState = rememberDatePickerState(
         initialDisplayedMonthMillis = System.currentTimeMillis(),
         yearRange = 1900..2024
     )
     val showDatePicker = remember { mutableStateOf(true) }
-    var selected=remember { mutableStateOf(selectedDate) }
+
     if (showDatePicker.value) {
         DatePickerDialog(
-
-            onDismissRequest = { },
+            onDismissRequest = {showDatePicker.value = true },
             confirmButton = {
                 TextButton(
                     onClick = { showDatePicker.value = false },
@@ -376,10 +380,13 @@ fun DatePickerDialogCo(selectedDate: Date?) {
                     Text(text = "Dismiss")
                 }
             }) {
-            selected.value= Date(datePickerState.selectedDateMillis!!)
+
             DatePicker(
                 state = datePickerState
             )
+           if(datePickerState.selectedDateMillis!=null){
+                registeringViewModel.setDate(Date( datePickerState.selectedDateMillis!!).formatAndToString())
+           }
 
         }
     }
@@ -388,4 +395,8 @@ fun DatePickerDialogCo(selectedDate: Date?) {
 enum class UserGander {
     Male,
     Female
+}
+
+fun Date.formatAndToString():String{
+   return SimpleDateFormat( "dd.MM.yyy ", Locale.getDefault()).format(this)
 }

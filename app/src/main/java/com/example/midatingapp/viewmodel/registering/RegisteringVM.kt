@@ -4,10 +4,11 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
-class RegisteringViewModel : MeanVM() {
+class RegisteringViewModel : ViewModel() {
 
     private val _user = MutableLiveData<User>().apply { value = User() }
     val user: LiveData<User> = _user
+
 
     private val _errorField =
         MutableLiveData<MutableList<Error>>().apply { value = emptyList<Error>().toMutableList() }
@@ -36,11 +37,14 @@ class RegisteringViewModel : MeanVM() {
     fun setError(error: MutableList<Error>) {
         _errorField.value = error
     }
+    fun setDate(date: String) {
+        val updatedUser = _user.value?.copy(date = date)
+        _user.value = updatedUser
+    }
 
-    fun checkError(): Boolean {
+    fun checkErrorForFirstPage(): Boolean {
 
         val check = _user.value!!.emptyFields().isEmpty()
-        val passwordMatch = _user.value!!.matchPassword()
         val mutableListOfError: MutableList<Error> = emptyList<Error>().toMutableList()
         if (!check) {
             _user.value!!.emptyFields().forEach {
@@ -79,7 +83,9 @@ data class User(
     var name: String = "",
     var email: String = "",
     var password: String = "",
-    var confirmedPassword: String = ""
+    var confirmedPassword: String = "",
+    var date: String = "",
+    var gander: String = "",
 ) {
     fun emptyFields(): List<String> {
         val emptyFields = mutableListOf<String>()

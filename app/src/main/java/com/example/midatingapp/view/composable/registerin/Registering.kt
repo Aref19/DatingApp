@@ -72,10 +72,10 @@ fun RegisteringC(
                          outletAttribute = outletAttribute,
                          uservalue = uservalue,
                          navController,
-                     ) { registeringViewModel.checkError() }
+                     ) { registeringViewModel.checkErrorForFirstPage() }
                  }
                  composable("secondPage"){
-                     secondPage(navController)
+                     secondPage(navController,uservalue, registeringViewModel = registeringViewModel)
                  }
              }
 
@@ -139,13 +139,13 @@ fun firstPage(
 }
 
 @Composable
-fun secondPage(navController: NavHostController) {
+fun secondPage(navController: NavHostController, uservalue: User?, registeringViewModel: RegisteringViewModel,) {
     Column(
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         RegisteringText(2)
-        DatePickerTextField(Date(), mutableListOf<OutletAttribute>(outletAttributeRegisPage2[0])[0])
+        DatePickerTextField(Date(), mutableListOf<OutletAttribute>(outletAttributeRegisPage2[0])[0], value = uservalue!!,registeringViewModel)
         Gander(mutableListOf<OutletAttribute>(outletAttributeRegisPage2[0])[0])
         ButtonCompose({})
 
