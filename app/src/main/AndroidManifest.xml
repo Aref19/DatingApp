@@ -12,7 +12,11 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MIDatingApp"
         tools:targetApi="31">
-
+        <activity
+            android:name=".view.RegisterinActivity2"
+            android:exported="false"
+            android:label="@string/title_activity_registerin2"
+            android:theme="@style/Theme.MIDatingApp" />
         <activity
             android:name=".view.RegisteringActivity"
             android:exported="false"
